@@ -1,0 +1,178 @@
+-- Utility function to set tool names
+local function setToolName(buttonName, newName)
+    local player = game.Players.LocalPlayer
+    local playerGui = player.PlayerGui
+    local hotbar = playerGui:FindFirstChild("Hotbar")
+    local backpack = hotbar and hotbar:FindFirstChild("Backpack")
+    local hotbarFrame = backpack and backpack:FindFirstChild("Hotbar")
+    local baseButton = hotbarFrame and hotbarFrame:FindFirstChild(buttonName)
+    
+    if baseButton then
+        local ToolName = baseButton:FindFirstChild("ToolName")
+        if ToolName then
+            ToolName.Text = newName
+        end
+    end
+end
+
+-- Set tool names
+setToolName("1", "Serious Punch")
+setToolName("2", "Table Flip")
+setToolName("3", "Omni Directional Punch")
+setToolName("4", "Serious Uprise")
+
+-- Function to handle GUI updates
+local function findGuiAndSetText()
+    local player = game.Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+    local screenGui = playerGui:FindFirstChild("ScreenGui")
+    
+    if screenGui then
+        local magicHealthFrame = screenGui:FindFirstChild("MagicHealth")
+        if magicHealthFrame then
+            local textLabel = magicHealthFrame:FindFirstChild("TextLabel")
+            if textLabel then
+                textLabel.Text = "FULL EXPRIENCE"
+            end
+        end
+    end
+end
+
+-- Update GUI text when added
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+playerGui.DescendantAdded:Connect(findGuiAndSetText)
+findGuiAndSetText()
+
+-- Function to handle animations
+local function onAnimationPlayed(animationTrack)
+    local animationId = tonumber(animationTrack.Animation.AnimationId:match("%d+"))
+    
+    -- List of animations and their replacements
+    local animationReplacements = {
+        [12273188754] = "rbxassetid://10466974800", -- flowing water YES -- 
+        [13603396939] = "rbxassetid://15943915877", -- preys perl YES -- 
+        [12467789963] = "rbxassetid://18464356233", -- ULTIMATE MOVE 2 YES -- 
+        [12342141464] = "rbxassetid://13716964686", -- ULTIMATE YES -- 
+        [10479335397] = "rbxassetid://17838006839", -- dash YES -- 
+        [10470104242] = "rbxassetid://13785666020", -- downslam YES -- 
+        [12447247483] = "rbxassetid://14003607057", -- hunters grasp finisher YES -- 
+        [14798608838] = "rbxassetid://13813099821", -- leathal stream finisher YES -- 
+        [12296113986] = "rbxassetid://15145462680", -- leathal stream YES -- 
+        [12309835105] = "rbxassetid://16515850153", -- hunter grasp YES -- 
+    }
+    
+    local replacementId = animationReplacements[animationId]
+    if replacementId then
+        -- Stop all animations
+        for _, animTrack in pairs(game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+            animTrack:Stop()
+        end
+        
+        -- Play replacement animation
+        local anim = Instance.new("Animation")
+        anim.AnimationId = replacementId
+        local newAnimTrack = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(anim)
+        newAnimTrack:Play()
+        
+        -- Adjust animation settings
+        newAnimTrack:AdjustSpeed(0)
+        newAnimTrack.TimePosition = 0
+        newAnimTrack:AdjustSpeed(1)
+    end
+end
+
+-- Connect function to AnimationPlayed event
+local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+humanoid.AnimationPlayed:Connect(onAnimationPlayed)
+
+-- Function to handle BodyVelocity
+local function onBodyVelocityAdded(bodyVelocity)
+    if bodyVelocity:IsA("BodyVelocity") then
+        bodyVelocity.Velocity = Vector3.new(bodyVelocity.Velocity.X, 0, bodyVelocity.Velocity.Z)
+    end
+end
+
+-- Monitor existing and new BodyVelocity instances
+local character = game.Players.LocalPlayer.Character
+for _, descendant in pairs(character:GetDescendants()) do
+    onBodyVelocityAdded(descendant)
+end
+
+character.DescendantAdded:Connect(onBodyVelocityAdded)
+
+-- Handle new character
+game.Players.LocalPlayer.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    for _, descendant in pairs(character:GetDescendants()) do
+        onBodyVelocityAdded(descendant)
+    end
+end)
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("1").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "BeatDown"
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("2").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Spino"
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("3").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "JumpHit"
+
+local player = game.Players.LocalPlayer
+
+local playerGui = player.PlayerGui
+
+local hotbar = playerGui:FindFirstChild("Hotbar")
+
+local backpack = hotbar:FindFirstChild("Backpack")
+
+local hotbarFrame = backpack:FindFirstChild("Hotbar")
+
+local baseButton = hotbarFrame:FindFirstChild("4").Base
+
+local ToolName = baseButton.ToolName
+
+
+ToolName.Text = "Confuser"
+
+-- FOR GAROU -- 
